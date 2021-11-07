@@ -8,6 +8,7 @@ const readLine = createInterface({
 
 readLine.question("> ", (input) => {
   const { result, errors } = generateTruthTable(input);
-  console.log(result, errors);
+  console.table(result);
+  errors.length !== 0 && console.error(errors);
   readLine.close();
 });

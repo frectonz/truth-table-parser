@@ -2,7 +2,7 @@
 
 ## Examples
 
-```
+```text
 p
 !p
 p & q
@@ -16,7 +16,7 @@ p & q
 
 ## Backus Naur Form (BNF)
 
-```
+```text
 <TTP> ::= <PROPOSITION>*
 
 <PROPOSITION> ::= <name> |

@@ -1,4 +1,4 @@
-const { generateTruthTable } = require("TTP");
+const { generateTruthTable } = require("../dist/index");
 const { createInterface } = require("readline");
 
 const readLine = createInterface({

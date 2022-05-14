@@ -4,9 +4,7 @@ import { Generator } from "./generators/Generator";
 import { SyntaxBuilder } from "./parser/SyntaxBuilder";
 import { TTPError } from "./parser/Error";
 
-export function generateTruthTable(
-  input: string
-): {
+export function generateTruthTable(input: string): {
   result: object | null;
   errors: TTPError[];
 } {

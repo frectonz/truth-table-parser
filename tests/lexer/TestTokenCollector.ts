@@ -7,38 +7,38 @@ export class TestTokenCollector implements TokenCollector {
   }
 
   name(name: string, line: number, pos: number) {
-    this.tokens.push(`#${name}#`);
+    this.tokens.push(`[#${name}# (${line}, ${pos})]`);
   }
 
-  biImplication() {
-    this.tokens.push("BI-IMPL");
+  biImplication(line: number, pos: number) {
+    this.tokens.push(`[BI-IMPL (${line}, ${pos})]`);
   }
 
-  implication() {
-    this.tokens.push("IMPL");
+  implication(line: number, pos: number) {
+    this.tokens.push(`[IMPL (${line}, ${pos})]`);
   }
 
-  conjunction() {
-    this.tokens.push("AND");
+  conjunction(line: number, pos: number) {
+    this.tokens.push(`[AND (${line}, ${pos})]`);
   }
 
-  disjunction() {
-    this.tokens.push("OR");
+  disjunction(line: number, pos: number) {
+    this.tokens.push(`[OR (${line}, ${pos})]`);
   }
 
-  negation() {
-    this.tokens.push("NOT");
+  negation(line: number, pos: number) {
+    this.tokens.push(`[NOT (${line}, ${pos})]`);
   }
 
   error(line: number, pos: number) {
     this.tokens.push(`E${line}/${pos}`);
   }
 
-  openParen() {
-    this.tokens.push("LPAREN");
+  openParen(line: number, pos: number) {
+    this.tokens.push(`[LPAREN (${line}, ${pos})]`);
   }
 
-  closeParen() {
-    this.tokens.push("RPAREN");
+  closeParen(line: number, pos: number) {
+    this.tokens.push(`[RPAREN (${line}, ${pos})]`);
   }
 }

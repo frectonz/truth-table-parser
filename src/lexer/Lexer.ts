@@ -15,7 +15,7 @@ export class Lexer {
     this.lineNumber = 1;
     const lines = text.trim().split("\n");
     for (const line of lines) {
-      this.lexLine(line);
+      this.lexLine(line.trim());
       this.lineNumber++;
     }
   }
@@ -47,7 +47,7 @@ export class Lexer {
   private findWhiteSpace(line: string): boolean {
     const matches = this.whiteSpacePattern.exec(line.substring(this.pos));
     if (matches && matches.length > 0) {
-      this.pos += matches[matches.length - 1].length;
+      this.pos += matches[0].length;
       return true;
     }
     return false;
@@ -58,19 +58,19 @@ export class Lexer {
 
     switch (c) {
       case "!":
-        this.collector.negation(this.lineNumber, this.pos);
+        this.collector.negation(this.lineNumber, this.pos + 1);
         break;
       case "&":
-        this.collector.conjunction(this.lineNumber, this.pos);
+        this.collector.conjunction(this.lineNumber, this.pos + 1);
         break;
       case "|":
-        this.collector.disjunction(this.lineNumber, this.pos);
+        this.collector.disjunction(this.lineNumber, this.pos + 1);
         break;
       case "(":
-        this.collector.openParen(this.lineNumber, this.pos);
+        this.collector.openParen(this.lineNumber, this.pos + 1);
         break;
       case ")":
-        this.collector.closeParen(this.lineNumber, this.pos);
+        this.collector.closeParen(this.lineNumber, this.pos + 1);
         break;
       default:
         return false;
@@ -88,7 +88,7 @@ export class Lexer {
       line.substring(this.pos)
     );
     if (implicationMatches && implicationMatches.length > 0) {
-      this.collector.implication(this.lineNumber, this.pos);
+      this.collector.implication(this.lineNumber, this.pos + 1);
       this.pos += implicationMatches[0].length;
       return true;
     }
@@ -97,7 +97,7 @@ export class Lexer {
       line.substring(this.pos)
     );
     if (biImplicationMatches && biImplicationMatches.length > 0) {
-      this.collector.biImplication(this.lineNumber, this.pos);
+      this.collector.biImplication(this.lineNumber, this.pos + 1);
       this.pos += biImplicationMatches[0].length;
       return true;
     }
@@ -109,7 +109,7 @@ export class Lexer {
   private findName(line: string): boolean {
     const matches = this.namePattern.exec(line.substring(this.pos));
     if (matches && matches.length > 0) {
-      this.collector.name(matches[0], this.lineNumber, this.pos);
+      this.collector.name(matches[0], this.lineNumber, this.pos + 1);
       this.pos += matches[0].length;
       return true;
     }

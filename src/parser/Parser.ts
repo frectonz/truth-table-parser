@@ -1,19 +1,11 @@
 import { Builder } from "./Builder";
-import { TokenCollector } from "../lexer/TokenCollector";
 import { ParserState } from "./ParserState";
 import { ParserEvent } from "./ParserEvent";
-
-const {
-  END,
-  VAR,
-  PROP,
-  UNARY_CON,
-  BINARY_CON,
-  PROP_LPAREN,
-  PROP_RPAREN,
-} = ParserState;
+import { TokenCollector } from "../lexer/TokenCollector";
 
 const { EOF, UNARY, BINARY, NAME, LPAREN, RPAREN } = ParserEvent;
+const { END, VAR, PROP, UNARY_CON, BINARY_CON, PROP_LPAREN, PROP_RPAREN } =
+  ParserState;
 
 class Transition {
   constructor(
@@ -100,39 +92,40 @@ export class Parser implements TokenCollector {
     this.handleEvent(ParserEvent.EOF, line, pos);
   }
 
-  parse() {
-    this.handleEvent(ParserEvent.EOF, -1, -1);
-  }
-
   handleEvent(event: ParserEvent, line: number, pos: number) {
     for (const transition of this.transitions) {
       if (
-        transition.currentState === this.state &&
-        transition.event === event
+        transition.event === event &&
+        transition.currentState === this.state
       ) {
         this.state = transition.nextState;
-        if (transition.action !== null) transition.action(this.builder);
+
+        if (transition.action) {
+          transition.action(this.builder);
+        }
+
         return;
       }
     }
-    this.handleErrorEvent(event, line, pos);
+
+    this.handleErrorEvent(line, pos);
   }
 
-  handleErrorEvent(event: ParserEvent, line: number, pos: number) {
+  handleErrorEvent(line: number, pos: number) {
     switch (this.state) {
       case ParserState.VAR:
-        this.builder.variableError(this.state, event, line, pos);
+        this.builder.variableError(line, pos);
         break;
       case ParserState.PROP:
       case ParserState.PROP_LPAREN:
       case ParserState.PROP_RPAREN:
-        this.builder.propositionError(this.state, event, line, pos);
+        this.builder.propositionError(line, pos);
         break;
       case ParserState.BINARY_CON:
-        this.builder.binaryError(this.state, event, line, pos);
+        this.builder.binaryError(line, pos);
         break;
       case ParserState.UNARY_CON:
-        this.builder.unaryError(this.state, event, line, pos);
+        this.builder.unaryError(line, pos);
         break;
     }
   }

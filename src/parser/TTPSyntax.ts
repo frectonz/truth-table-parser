@@ -72,7 +72,10 @@ export class TTP {
       }
     };
 
-    this.root && infix(this.root);
+    if (this.root) {
+      infix(this.root);
+    }
+
     return output.join("");
   }
 

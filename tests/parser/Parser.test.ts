@@ -15,13 +15,11 @@ describe("Parser Test", () => {
 
   const assertParseResult = (input: string, expected: string) => {
     lexer.lex(input);
-    parser.parse();
     expect(expected).toBe(builder.getTTP().toString());
   };
 
   const assertErrorResult = (input: string, expected: ErrorType) => {
     lexer.lex(input);
-    parser.parse();
     expect(
       builder.getTTP().errors.filter((error) => error.type === expected)
         .length > 0

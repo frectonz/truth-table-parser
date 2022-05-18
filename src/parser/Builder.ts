@@ -14,28 +14,8 @@ export interface Builder {
 
   setVarName: (name: string) => void;
   syntaxError: (line: number, pos: number) => void;
-  unaryError: (
-    state: ParserState,
-    event: ParserEvent,
-    line: number,
-    pos: number
-  ) => void;
-  binaryError: (
-    state: ParserState,
-    event: ParserEvent,
-    line: number,
-    pos: number
-  ) => void;
-  variableError: (
-    state: ParserState,
-    event: ParserEvent,
-    line: number,
-    pos: number
-  ) => void;
-  propositionError: (
-    state: ParserState,
-    event: ParserEvent,
-    line: number,
-    pos: number
-  ) => void;
+  unaryError: (line: number, pos: number) => void;
+  binaryError: (line: number, pos: number) => void;
+  variableError: (line: number, pos: number) => void;
+  propositionError: (line: number, pos: number) => void;
 }

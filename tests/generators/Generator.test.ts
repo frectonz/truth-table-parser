@@ -17,7 +17,6 @@ describe("Generator Tests", () => {
 
   const assertGeneratorResult = (input: string, expected: object) => {
     lexer.lex(input);
-    parser.parse();
     const output = generator.generate();
     expect(output).toStrictEqual(expected);
   };

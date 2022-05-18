@@ -1,6 +1,6 @@
 import { Builder } from "./Builder";
-import { TTP, Node, BinOpNode, UnaryOpNode, VariableNode } from "./TTPSyntax";
 import { TTPError, ErrorType } from "./Error";
+import { TTP, Node, BinOpNode, UnaryOpNode, VariableNode } from "./TTPSyntax";
 
 export class SyntaxBuilder implements Builder {
   private tokens: string[];
@@ -15,6 +15,7 @@ export class SyntaxBuilder implements Builder {
   createVar() {
     this.tokens.push(this.varName);
   }
+
   setVarName(name: string) {
     this.varName = name;
   }
@@ -26,12 +27,15 @@ export class SyntaxBuilder implements Builder {
   addConjunction() {
     this.tokens.push("&");
   }
+
   addDisjunction() {
     this.tokens.push("|");
   }
+
   addImplication() {
     this.tokens.push("=>");
   }
+
   addBiImplication() {
     this.tokens.push("<=>");
   }
@@ -39,6 +43,7 @@ export class SyntaxBuilder implements Builder {
   startProp() {
     this.tokens.push("(");
   }
+
   endProp() {
     this.tokens.push(")");
   }
@@ -47,11 +52,8 @@ export class SyntaxBuilder implements Builder {
     if (this.ttp.errors.length > 0) {
       return;
     }
-    this.generateBinaryExpressionTree();
-  }
 
-  getTTP(): TTP {
-    return this.ttp;
+    this.generateBinaryExpressionTree();
   }
 
   syntaxError(line: number, pos: number) {
@@ -64,6 +66,7 @@ export class SyntaxBuilder implements Builder {
       )
     );
   }
+
   unaryError(line: number, pos: number) {
     this.ttp.errors.push(
       new TTPError(
@@ -74,6 +77,7 @@ export class SyntaxBuilder implements Builder {
       )
     );
   }
+
   binaryError(line: number, pos: number) {
     this.ttp.errors.push(
       new TTPError(
@@ -84,6 +88,7 @@ export class SyntaxBuilder implements Builder {
       )
     );
   }
+
   variableError(line: number, pos: number) {
     this.ttp.errors.push(
       new TTPError(
@@ -94,6 +99,7 @@ export class SyntaxBuilder implements Builder {
       )
     );
   }
+
   propositionError(line: number, pos: number) {
     this.ttp.errors.push(
       new TTPError(
@@ -103,6 +109,10 @@ export class SyntaxBuilder implements Builder {
         pos
       )
     );
+  }
+
+  getTTP(): TTP {
+    return this.ttp;
   }
 
   private getConnPrecedence(conn: string) {
@@ -122,7 +132,7 @@ export class SyntaxBuilder implements Builder {
     }
   }
 
-  private generatePrefixNotation() {
+  private generatePostfixNotation() {
     const output: string[] = [];
     const operators: string[] = [];
 
@@ -165,7 +175,7 @@ export class SyntaxBuilder implements Builder {
   }
 
   private generateBinaryExpressionTree() {
-    let postfixNotation = this.generatePrefixNotation();
+    let postfixNotation = this.generatePostfixNotation();
     let stack: Node[] = [];
 
     postfixNotation.forEach((notation) => {

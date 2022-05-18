@@ -11,10 +11,10 @@ export function generateTruthTable(input: string): {
   const builder = new SyntaxBuilder();
   const parser = new Parser(builder);
   const lexer = new Lexer(parser);
+
   const generator = new Generator(builder.getTTP());
 
   lexer.lex(input);
-  parser.parse();
 
   const errors = generator.getErrors();
   let result: object | null = null;

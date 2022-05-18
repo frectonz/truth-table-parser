@@ -11,4 +11,6 @@ export interface TokenCollector {
 
   openParen: (line: number, pos: number) => void;
   closeParen: (line: number, pos: number) => void;
+
+  done: (line: number, pos: number) => void;
 }

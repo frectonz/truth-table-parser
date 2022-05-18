@@ -18,6 +18,7 @@ export class Lexer {
       this.lexLine(line.trim());
       this.lineNumber++;
     }
+    this.collector.done(this.lineNumber - 1, this.pos);
   }
 
   private lexLine(line: string) {

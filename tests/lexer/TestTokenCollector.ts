@@ -41,4 +41,6 @@ export class TestTokenCollector implements TokenCollector {
   closeParen(line: number, pos: number) {
     this.tokens.push(`[RPAREN (${line}, ${pos})]`);
   }
+
+  done(line: number, pos: number) {}
 }

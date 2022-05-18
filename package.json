@@ -20,6 +20,7 @@
   "scripts": {
     "test": "jest",
     "build": "rollup -c",
+    "test:types": "tsc --noEmit",
     "clean": "rm -rf dist coverage",
     "start": "node ./example/index.js",
     "test:coverage": "jest --coverage"

@@ -1,14 +1,23 @@
 const { generateTruthTable } = require("../dist/index");
-const { createInterface } = require("readline");
+const repl = require("repl");
 
-const readLine = createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+repl.start({
+  prompt: "> ",
+  eval: (cmd, _, __, callback) => {
+    try {
+      const { result, errors } = generateTruthTable(cmd);
 
-readLine.question("> ", (input) => {
-  const { result, errors } = generateTruthTable(input);
-  console.table(result);
-  errors.length !== 0 && console.error(errors);
-  readLine.close();
+      if (result) {
+        console.table(result);
+        return callback(null, "OK");
+      }
+
+      if (errors.length !== 0) {
+        errors.forEach((error) => console.error(error.msg));
+        return callback(null, "ERROR");
+      }
+    } catch (e) {
+      callback(e);
+    }
+  },
 });

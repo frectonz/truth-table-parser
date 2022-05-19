@@ -49,25 +49,25 @@ export class Generator {
     }
   }
 
-  private generateVariables() {
-    let inputs = [];
+  private generateVariablesTable() {
     const variables = Array.from(this.ttp.variables.values());
-    for (let i = 0; i < Math.max(variables.length ** 2, 2); i++) {
-      inputs.push(
-        decimalToBinary(i, variables.length).map((num) => (num ? "F" : "T"))
+    return new Array(2 ** variables.length)
+      .fill(null)
+      .map((_, i) =>
+        decimalToBinary(i, variables.length).map((val) =>
+          val === 0 ? "T" : "F"
+        )
       );
-    }
-    return inputs;
   }
 
   private generateVarInputMap() {
     const inputsMap = new Map<string, string[]>();
     const variables = Array.from(this.ttp.variables.values());
-    const variableInputs = this.generateVariables();
+    const variablesTable = this.generateVariablesTable();
 
     variables.forEach((variable, i) => {
       inputsMap.set(variable, []);
-      for (const input of variableInputs) {
+      for (const input of variablesTable) {
         let inputs = inputsMap.get(variable);
         if (inputs) {
           inputs.push(input[i]);
@@ -130,30 +130,43 @@ export class Generator {
     return js;
   }
 
-  generate() {
+  generate(): any {
     let outputMap = this.generateVarInputMap();
-    const inputVariables = this.generateVariables();
+    const variablesTable = this.generateVariablesTable();
+    const variables = Array.from(this.ttp.variables.values());
+    const prop = this.ttp.toString();
 
     eval(this.generatePropositionExecutor());
 
-    outputMap.set("result", []);
-    inputVariables.forEach((variables) => {
-      let result = outputMap.get("result");
+    outputMap.set(prop, []);
+
+    variablesTable.forEach((variables) => {
+      let result = outputMap.get(prop);
       if (result) {
         result.push(executeProp(...variables));
-        outputMap.set("result", result);
+        outputMap.set(prop, result);
       }
     });
 
-    let outputObj: any = {};
-    for (const key of outputMap.keys()) {
-      const values = outputMap.get(key);
-      if (values) {
-        outputObj[key] = values;
-      }
-    }
+    let obj = new Array(2 ** variables.length).fill(null).map((_, i) => {
+      const obj: any = {};
 
-    return outputObj as object;
+      variables.forEach((variable) => {
+        const values = outputMap.get(variable);
+        if (values) {
+          obj[variable] = values[i];
+        }
+      });
+
+      const result = outputMap.get(prop);
+      if (result) {
+        obj[prop] = result[i];
+      }
+
+      return obj;
+    });
+
+    return obj;
   }
 
   getErrors() {

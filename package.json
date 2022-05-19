@@ -24,5 +24,9 @@
     "clean": "rm -rf dist coverage",
     "start": "node ./example/index.js",
     "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "console-table-printer": "^2.11.0",
+    "optionem": "^0.2.5"
   }
 }

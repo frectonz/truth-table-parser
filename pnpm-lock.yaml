@@ -2,11 +2,17 @@ lockfileVersion: 5.4
 
 specifiers:
   '@types/jest': ^26.0.24
+  console-table-printer: ^2.11.0
   jest: ^26.6.3
+  optionem: ^0.2.5
   rollup: ^2.73.0
   rollup-plugin-typescript2: ^0.30.0
   ts-jest: ^26.5.6
   typescript: ^4.6.4
+
+dependencies:
+  console-table-printer: 2.11.0
+  optionem: 0.2.5
 
 devDependencies:
   '@types/jest': 26.0.24
@@ -1098,6 +1104,12 @@ packages:
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
     dev: true
+
+  /console-table-printer/2.11.0:
+    resolution: {integrity: sha512-F5H5/lFciTV2OBI/xDh/x7nZAM6YPqkbkoIxr8px4B/nSvUV4ymsi4BL0bwRwrRcOgtp/LqGJGgGmkicAMd8LQ==}
+    dependencies:
+      simple-wcswidth: 1.0.1
+    dev: false
 
   /convert-source-map/1.8.0:
     resolution: {integrity: sha512-+OQdjP49zViI/6i7nIJpA8rAl4sV/JdPfU9nZs3VqOwGIgizICvuN2ru6fMd+4llL0tar18UYJXfZ/TWtmhUjA==}
@@ -2711,6 +2723,10 @@ packages:
       word-wrap: 1.2.3
     dev: true
 
+  /optionem/0.2.5:
+    resolution: {integrity: sha512-zXcX1ExMJRk2WWnPkz9AwWW1/pVynniigQMuzAVDmhmep+zwSHr4f4QWSBRQK+gTS0NVZdtnD0e/bMuxXvml7Q==}
+    dev: false
+
   /p-each-series/2.2.0:
     resolution: {integrity: sha512-ycIL2+1V32th+8scbpTvyHNaHe02z0sjgh91XXjAk+ZeXoPN4Z46DVUnzdso0aX4KckKw0FNNFHdjZ2UsZvxiA==}
     engines: {node: '>=8'}
@@ -3077,6 +3093,10 @@ packages:
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
     dev: true
+
+  /simple-wcswidth/1.0.1:
+    resolution: {integrity: sha512-xMO/8eNREtaROt7tJvWJqHBDTMFN4eiQ5I4JRMuilwfnFcV5W9u7RUkueNkdw0jPqGMX36iCywelS5yilTuOxg==}
+    dev: false
 
   /sisteransi/1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}

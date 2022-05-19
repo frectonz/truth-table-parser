@@ -1,21 +1,23 @@
-const { generateTruthTable } = require("../dist/index");
 const repl = require("repl");
+const { printTable } = require("console-table-printer");
+const { generateTruthTable } = require("../dist/index");
 
 repl.start({
   prompt: "> ",
   eval: (cmd, _, __, callback) => {
     try {
-      const { result, errors } = generateTruthTable(cmd);
+      const result = generateTruthTable(cmd);
 
-      if (result) {
-        console.table(result);
-        return callback(null, "OK");
-      }
-
-      if (errors.length !== 0) {
-        errors.forEach((error) => console.error(error.msg));
-        return callback(null, "ERROR");
-      }
+      result.match({
+        Ok(map) {
+          printTable(map);
+          callback(null, "OK");
+        },
+        Err(errors) {
+          errors.forEach((error) => console.error(error.msg));
+          callback(null, "ERROR");
+        },
+      });
     } catch (e) {
       callback(e);
     }

@@ -1,34 +1,26 @@
 import { Lexer } from "./lexer/Lexer";
 import { Parser } from "./parser/Parser";
+import { TTPError } from "./parser/Error";
 import { Generator } from "./generators/Generator";
 import { SyntaxBuilder } from "./parser/SyntaxBuilder";
-import { TTPError } from "./parser/Error";
 
-export function generateTruthTable(input: string): {
-  result: object | null;
-  errors: TTPError[];
-} {
+import { Ok, Err, Result } from "optionem";
+
+export function generateTruthTable(
+  input: string
+): Result<Map<string, string[]>, TTPError[]> {
   const builder = new SyntaxBuilder();
   const parser = new Parser(builder);
   const lexer = new Lexer(parser);
-
   const generator = new Generator(builder.getTTP());
 
   lexer.lex(input);
 
   const errors = generator.getErrors();
-  let result: object | null = null;
 
   if (errors.length === 0) {
-    result = generator.generate();
-    return {
-      errors,
-      result,
-    };
+    return new Ok(generator.generate());
   }
 
-  return {
-    errors,
-    result: null,
-  };
+  return new Err(errors);
 }

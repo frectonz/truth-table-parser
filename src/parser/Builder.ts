@@ -1,6 +1,3 @@
-import { ParserState } from "./ParserState";
-import { ParserEvent } from "./ParserEvent";
-
 export interface Builder {
   createVar: () => void;
   addNegation: () => void;

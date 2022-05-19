@@ -23,51 +23,59 @@ describe("Generator Tests", () => {
 
   describe("Propositions", () => {
     test("Single Proposition", () => {
-      assertGeneratorResult("p", { p: ["T", "F"], result: ["T", "F"] });
+      assertGeneratorResult("p", [{ p: "T" }, { p: "F" }]);
     });
 
     test("Single Proposition With Negation", () => {
-      assertGeneratorResult("!p", { p: ["T", "F"], result: ["F", "T"] });
+      assertGeneratorResult("!p", [
+        { "!p": "F", p: "T" },
+        { "!p": "T", p: "F" },
+      ]);
     });
 
     test("Compound Proposition With And", () => {
-      assertGeneratorResult("p & q", {
-        p: ["T", "T", "F", "F"],
-        q: ["T", "F", "T", "F"],
-        result: ["T", "F", "F", "F"],
-      });
+      assertGeneratorResult("p & q", [
+        { "(p&q)": "T", p: "T", q: "T" },
+        { "(p&q)": "F", p: "T", q: "F" },
+        { "(p&q)": "F", p: "F", q: "T" },
+        { "(p&q)": "F", p: "F", q: "F" },
+      ]);
     });
 
     test("Compound Proposition With Or", () => {
-      assertGeneratorResult("p | q", {
-        p: ["T", "T", "F", "F"],
-        q: ["T", "F", "T", "F"],
-        result: ["T", "T", "T", "F"],
-      });
+      assertGeneratorResult("p | q", [
+        { "(p|q)": "T", p: "T", q: "T" },
+        { "(p|q)": "T", p: "T", q: "F" },
+        { "(p|q)": "T", p: "F", q: "T" },
+        { "(p|q)": "F", p: "F", q: "F" },
+      ]);
     });
 
     test("Compound Proposition With Implication", () => {
-      assertGeneratorResult("p => q", {
-        p: ["T", "T", "F", "F"],
-        q: ["T", "F", "T", "F"],
-        result: ["T", "F", "T", "T"],
-      });
+      assertGeneratorResult("p => q", [
+        { "(p=>q)": "T", p: "T", q: "T" },
+        { "(p=>q)": "F", p: "T", q: "F" },
+        { "(p=>q)": "T", p: "F", q: "T" },
+        { "(p=>q)": "T", p: "F", q: "F" },
+      ]);
     });
 
     test("Compound Proposition With Bi Implication", () => {
-      assertGeneratorResult("p <=> q", {
-        p: ["T", "T", "F", "F"],
-        q: ["T", "F", "T", "F"],
-        result: ["T", "F", "F", "T"],
-      });
+      assertGeneratorResult("p <=> q", [
+        { "(p<=>q)": "T", p: "T", q: "T" },
+        { "(p<=>q)": "F", p: "T", q: "F" },
+        { "(p<=>q)": "F", p: "F", q: "T" },
+        { "(p<=>q)": "T", p: "F", q: "F" },
+      ]);
     });
 
     test("Compound Proposition With Negation", () => {
-      assertGeneratorResult("(!p) & (!q)", {
-        p: ["T", "T", "F", "F"],
-        q: ["T", "F", "T", "F"],
-        result: ["F", "F", "F", "T"],
-      });
+      assertGeneratorResult("(!p) & (!q)", [
+        { "(!p&!q)": "F", p: "T", q: "T" },
+        { "(!p&!q)": "F", p: "T", q: "F" },
+        { "(!p&!q)": "F", p: "F", q: "T" },
+        { "(!p&!q)": "T", p: "F", q: "F" },
+      ]);
     });
   });
 });

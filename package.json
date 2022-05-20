@@ -1,6 +1,6 @@
 {
   "name": "truth-table-parser",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -30,6 +30,6 @@
     "optionem": "^0.2.5"
   },
   "bin": {
-    "truth-table-parser": "./bin/index.js"
+    "truth-table-parser": "./cli/index.js"
   }
 }

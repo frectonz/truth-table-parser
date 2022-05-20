@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const repl = require("repl");
 const { printTable } = require("console-table-printer");
 const { generateTruthTable } = require("../dist/index");

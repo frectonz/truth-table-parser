@@ -28,5 +28,8 @@
   "dependencies": {
     "console-table-printer": "^2.11.0",
     "optionem": "^0.2.5"
+  },
+  "bin": {
+    "truth-table-parser": "./bin/index.js"
   }
 }

@@ -8,7 +8,7 @@ As a command line tool
 
 ```bash
 > npm install -g truth-table-parser
-> truth-table-parse # drops you into a REPL where you can ran your proposition.
+> truth-table-parse # drops you into a REPL where you can run your proposition.
 ```
 
 As a library

@@ -1,5 +1,22 @@
 # Truth Table Parser
 
+A REPL tool and library for generating truth tables from a logical proposition (see examples).
+
+## Install
+
+As a command line tool
+
+```bash
+> npm install -g truth-table-parser
+> truth-table-parse # drops you into a REPL where you can ran your proposition.
+```
+
+As a library
+
+```bash
+> npm install truth-table-parser
+```
+
 ## Examples
 
 ```text
@@ -14,7 +31,9 @@ p & q
 ((p => q) & (r => s))
 ```
 
-## Backus Naur Form (BNF)
+## Backus-Naur Form (BNF)
+
+The backus naur form for the syntax of a proposition.
 
 ```text
 <TTP> ::= <PROPOSITION>*

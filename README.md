@@ -23,7 +23,7 @@ As a library
 p
 !p
 p & q
-!p & q
+(!p) & q
 (p => q)
 !(p | q)
 (p <=> q)

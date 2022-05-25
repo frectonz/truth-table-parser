@@ -8,7 +8,7 @@ import { Ok, Err, Result } from "optionem";
 
 export function generateTruthTable(
   input: string
-): Result<Map<string, string[]>, TTPError[]> {
+): Result<[object], TTPError[]> {
   const builder = new SyntaxBuilder();
   const parser = new Parser(builder);
   const lexer = new Lexer(parser);
